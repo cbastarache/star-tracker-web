@@ -1,0 +1,103 @@
+.btn{white-space:normal;}
+.top-buffer { margin-top:20px; }
+body {
+	background: hsl(189, 16%, 43%);
+	color: #000000;
+}
+
+div {
+    padding: 0px;
+    margin: 0px;
+	font-family: "Arial Black", Gadget, sans-serif;
+}
+
+  div.content {
+    font-size: 20px;
+		width: 100%;
+  }
+
+	div.content img{
+		border: 3px solid #000;
+		border-radius: 5px;
+		display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	.large{
+		font-size: 25px;
+	}
+
+	.footnote{
+		font-size: 12px;
+		margin-top:3rem !important;
+	}
+	h1{
+		text-align: center;
+	}
+
+@media only screen and (min-width: 768px) {
+  div.content {
+    font-size: 14px;
+  }
+
+	.large{
+		font-size: 22px;
+
+	}
+
+
+/* Style the navigation menu */
+.topnav {
+	position: absolute;
+	overflow: hidden;
+	background-color: #333;
+	bottom: 0%;
+	right: 0%;
+	z-index: 300;
+	width:160px;
+}
+
+/* Hide the links inside the navigation menu (except for logo/home) */
+.topnav #myLinks {
+  display: none;
+}
+
+/* Style navigation menu links */
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+/* Style the hamburger menu */
+.topnav a.icon {
+  background: black;
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* Add a grey background color on mouse-over */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the active link (or home/logo) */
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.table-wrapper {
+  height: 90vh;
+	width: 100%;
+  overflow: auto;
+  /* display:inline-block; */
+}

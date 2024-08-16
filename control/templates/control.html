@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Star Tracker - Control</title>
+{% endblock title %}
+
+{% block content %}
+<h3 style="text-align:left;">Connect:</h3>
+<div class="row">
+    <div class="col-sm-3">
+        <input type="button" class="btn btn-default" value="Scan Ports" onclick=control.getPorts()>
+    </div>
+    <div class="col-sm-3">
+        <label for="select_port">Port:</label>
+        <select type="button" class="btn btn-default" id="select_port"></select>
+    </div>
+    <div class="col-sm-3">
+        <input type="button" class="btn btn-default" value="Connect" onclick=control.connect()>
+    </div>
+</div>
+
+<h3 style="text-align:left;">Control:</h3>
+<div class="row">
+    <div class="col-sm-3">
+        <input type="button" class="btn btn-default" value="Stop" onclick=control.sendCmd("STOP")>
+    </div>
+
+
+
+    <div class="col-sm-3">
+        <div style="row">
+            <input type="button" class="btn btn-default" value="&#8598;" onclick=control.jog(-1,1)>
+            <input type="button" class="btn btn-default" value="&#8593;" onclick=control.jog(0,1)>
+            <input type="button" class="btn btn-default" value="&#8599;" onclick=control.jog(1,1)>
+        </div>
+        <div style="row">
+            <input type="button" class="btn btn-default" value="&#8592;" onclick=control.jog(-1,0)>
+            <input type="button" class="btn btn-default" value="." onclick=control.sendCmd("MOVE,0,0")>
+            <input type="button" class="btn btn-default" value="&#8594;" onclick=control.jog(1,0)>
+        </div>
+        <div style="row">
+            <input type="button" class="btn btn-default" value="&#8601;" onclick=control.jog(-1,-1)>
+            <input type="button" class="btn btn-default" value="&#8595;" onclick=control.jog(0,-1)>
+            <input type="button" class="btn btn-default" value="&#8600;" onclick=control.jog(1,-1)>
+        </div>
+    </div>
+
+</div>
+
+<h3 style="text-align:left;">Status:</h3>
+<div class="row">
+    <div class="col-sm-3">
+        <p>Bearing: <span id="bearing"></span></p>
+        <p>Azimuth: <span id="azimuth"></span></p>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script src="{% static 'js/control.js' %}"></script>
+<script>
+    
+jQuery(document).ready(function($) {
+    $(".clickable-tr").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+var control = new Control()
+
+</script>
+{% endblock scripts %}
