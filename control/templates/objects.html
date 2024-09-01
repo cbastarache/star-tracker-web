@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Star Tracker - Objects</title>
+{% endblock title %}
+
+{% block content %}
+    <h2>Tracked Objects</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID#</th>
+                <th scope="col">Name</th>
+                <th scope="col">TLE 1</th>
+                <th scope="col">TLE 2</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for obj in object_list %}
+            <tr>
+                <td>{{ obj.catNo }}</td>
+                <td>{{ obj.name }}</td>
+                <td>{{ obj.tle1 }}</td>
+                <td>{{ obj.tle2 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> 
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

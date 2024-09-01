@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Star Tracker - Add Object</title>
+{% endblock title %}
+
+{% block content %}
+<input type="button" class="btn btn-default" value="Autofill" onclick=autofill()>
+<form action="/addobject" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="noradID">NORAD #:</label>
+        <input type="text" class="form-control" id="noradID" name="noradID" placeholder="Example input">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Example input">
+        <label for="tle1">TLE Line 1:</label>
+        <input type="text" class="form-control" id="tle1" name="tle1" placeholder="Example input">
+        <label for="tle2">TLE Line 2:</label>
+        <input type="text" class="form-control" id="tle2" name="tle2" placeholder="Example input">
+        <label for="uplink">Uplink:</label>
+        <input type="text" class="form-control" id="uplink" name="uplink" placeholder="Example input">
+        <label for="downlink">Downlink:</label>
+        <input type="text" class="form-control" id="downlink" name="downlink" placeholder="Example input">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Add</button>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+
+<script src="{% static 'js/objectLookup.js' %}"></script>
+<script>
+    
+jQuery(document).ready(function($) {
+    $(".clickable-tr").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+</script>
+{% endblock scripts %}

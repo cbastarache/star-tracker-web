@@ -126,3 +126,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from control.serialConnection import SerialTerminal
 serial = SerialTerminal()
+
+from control.orbital.ObjectTracker import ObjectTracker
+latitude = 43.227246 * 3.14 / 180.0
+longitude= -79.851980 * 3.14 / 180.0
+altitude  = 205.0
+latency = 6.0
+tracker = ObjectTracker(latitude, longitude, altitude, latency)

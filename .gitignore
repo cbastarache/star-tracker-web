@@ -1,1 +1,3 @@
 *.pyc
+orekit-data.zip
+db.sqlite3

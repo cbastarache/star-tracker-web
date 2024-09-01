@@ -5,7 +5,8 @@ import serial.tools.list_ports
 
 class SerialTerminal:
     def __init__(self):
-        self.getPorts()
+        # self.getPorts()
+        self.connectedPort = ""
 
     def __del__(self):
         self.close()
@@ -21,6 +22,7 @@ class SerialTerminal:
     def openPort(self, port):
         print("connecting to port", port)
         self.ser = serial.Serial(port)
+        self.connectedPort = port
         self.ser.flush()
         time.sleep(0.5)
 
@@ -38,6 +40,7 @@ class SerialTerminal:
 
     def close(self):
         self.ser.close()
+        self.connectedPort = ""
 
     def nullCallback(msg):
         print(msg)
@@ -45,3 +48,13 @@ class SerialTerminal:
         
 if __name__ == "__main__":
     ser = SerialTerminal()
+    ser.openPort("COM3")
+
+    
+    while True:
+        cmd = input(">> ")
+        ser.write(cmd + "\n")
+
+        resp = ser.read()
+        print(resp)
+
