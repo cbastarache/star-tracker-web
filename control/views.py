@@ -78,3 +78,12 @@ def track(request):
     client = Client("127.0.0.1", 5411, sCallback)
     client.sendMessage(payload)
     return HttpResponse("OK")
+
+def quicktrack(request):
+    payload = {
+        "tle1": request.GET["tle1"],
+        "tle2": request.GET["tle2"],
+    }
+    client = Client("127.0.0.1", 5411, sCallback)
+    client.sendMessage(payload)
+    return HttpResponse("OK")

@@ -78,5 +78,22 @@ function Control(){
         )
     }
 
+    this.quickTrack = function(){
+        id = $("#catno").val()
+        console.log(id)
+        $.get(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${id}&FORMAT=tle`, function(data, status){
+            if (status == "success"){
+                satData = data.split("\r\n")
+                satData = {
+                    "Name": satData[0].trim(),
+                    "tle1": satData[1],
+                    "tle2": satData[2],
+                }
+                $.get("/setTLE", satData)
+            }
+        })
+    }
+    
+
     // setInterval((function(self){return function() {self.getStatus()}})(this), 1000)
 }

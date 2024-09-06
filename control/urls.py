@@ -12,4 +12,5 @@ urlpatterns = [
     path('objects', views.objectspage),
     path('addobject', views.addObject),
     path('track', views.track),
+    path('setTLE', views.quicktrack),
 ]
