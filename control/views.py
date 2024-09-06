@@ -5,6 +5,13 @@ from control.CommandClient.client import Client
 import startracker.settings
 import json
 
+callbackData = ""
+
+def sCallback(data):
+    global callbackData
+    callbackData = data
+    print(data)
+
 def index(request):
     s = Satellite.objects.all()
     context = {
@@ -17,27 +24,42 @@ def index(request):
     return render(request, "control.html", context)
 
 def getPorts(request):
-    ports = startracker.settings.serial.getPorts()
-    print(ports)
-    return HttpResponse(json.dumps(ports))
+    # ports = startracker.settings.serial.getPorts()
+    # print(ports)
+    return HttpResponse("OK")
 
 def connect(request):
-    startracker.settings.serial.openPort(request.GET["port"])
+    # startracker.settings.serial.openPort(request.GET["port"])
     return HttpResponse("OK")
 
 def disconnect(request):
-    startracker.settings.serial.close()
+    # startracker.settings.serial.close()
     return HttpResponse("OK")
 
 def sendCommand(request):
-    startracker.settings.serial.write(request.GET["cmd"])
+    # startracker.settings.serial.write(request.GET["cmd"])
+    payload = {
+        "type": "cmd",
+        "cmd": request.GET["cmd"]
+    }
+    client = Client("127.0.0.1", 5411, sCallback)
+    client.sendMessage(payload)
     return HttpResponse("OK")
 
 def status(request):
-    startracker.settings.serial.write("POS")
-    data = startracker.settings.serial.read()
-    print(data)
-    return HttpResponse(data)
+    global callbackData
+    # startracker.settings.serial.write("POS")
+    # data = startracker.settings.serial.read()
+    # print(data)
+
+    payload = {
+        "type": "data",
+        "cmd": "POS\n"
+    }
+    client = Client("127.0.0.1", 5411, sCallback)
+    client.sendMessage(payload)
+    print(callbackData)
+    return HttpResponse(callbackData)
 
 def objectspage(request):
     s = Satellite.objects.all()
@@ -66,12 +88,10 @@ def addObject(request):
 
     return render(request, "addobject.html")
 
-def sCallback(data):
-    print(data)
-
 def track(request):
     o = Satellite.objects.get(catNo=request.GET["ID"])
     payload = {
+        "type": "track",
         "tle1": o.tle1,
         "tle2": o.tle2,
     }
@@ -81,6 +101,7 @@ def track(request):
 
 def quicktrack(request):
     payload = {
+        "type": "track",
         "tle1": request.GET["tle1"],
         "tle2": request.GET["tle2"],
     }

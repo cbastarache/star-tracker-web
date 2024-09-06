@@ -6,90 +6,93 @@
 {% endblock title %}
 
 {% block content %}
-<h3 style="text-align:left;">Connect:</h3>
-<div class="row">
-    <div class="col-sm-3">
-        <input type="button" class="btn btn-default" value="Scan Ports" onclick=control.getPorts()>
-    </div>
-    <div class="col-sm-3">
-        <label for="select_port">Port:</label>
-        <select type="button" class="btn btn-default" id="select_port">
-            {% for p in port_list %}
-                <option value="{{p}}" {% if p == connected %}selected{% endif %}>{{p}}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <input type="button" class="btn btn-default" value="Connect" onclick=control.connect()>
-        <input type="button" class="btn btn-default" value="Disconnect" onclick=control.disconnect()>
-    </div>
-</div>
-
-<h3 style="text-align:left;">Control:</h3>
-<div class="row">
-    <div class="col-sm-3">
-        <input type="button" class="btn btn-default" value="Stop" onclick=control.sendCmd("STOP")>
-    </div>
-
-    <div class="col-sm-3" id="jog_div">
-        <div style="row">
-            <input type="button" class="btn btn-default" value="&#8598;" onclick=control.jog(-1,1)>
-            <input type="button" class="btn btn-default" value="&#8593;" onclick=control.jog(0,1)>
-            <input type="button" class="btn btn-default" value="&#8599;" onclick=control.jog(1,1)>
+<div class="container">
+    <h3 style="text-align:left;">Connect:</h3>
+    <div class="row">
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-default" value="Scan Ports" onclick=control.getPorts()>
         </div>
-        <div style="row">
-            <input type="button" class="btn btn-default" value="&#8592;" onclick=control.jog(-1,0)>
-            <input type="button" class="btn btn-default" value="&#8962;" onclick=control.moveTo(0,0)>
-            <input type="button" class="btn btn-default" value="&#8594;" onclick=control.jog(1,0)>
+        <div class="col-sm-3">
+            <label for="select_port">Port:</label>
+            <select type="button" class="btn btn-default" id="select_port">
+                {% for p in port_list %}
+                    <option value="{{p}}" {% if p == connected %}selected{% endif %}>{{p}}</option>
+                {% endfor %}
+            </select>
         </div>
-        <div style="row">
-            <input type="button" class="btn btn-default" value="&#8601;" onclick=control.jog(-1,-1)>
-            <input type="button" class="btn btn-default" value="&#8595;" onclick=control.jog(0,-1)>
-            <input type="button" class="btn btn-default" value="&#8600;" onclick=control.jog(1,-1)>
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-default" value="Connect" onclick=control.connect()>
+            <input type="button" class="btn btn-default" value="Disconnect" onclick=control.disconnect()>
         </div>
     </div>
-
-    <div class="col-sm-3">
-        <input type="button" class="btn btn-default" value="Set Pole" onclick=control.setPole()>
-        <input type="button" class="btn btn-default" value="Fix Position" onclick=control.fixPosition()>
-    </div>
-
 </div>
 
-<div style="row">
-    <div class="col-sm-3">
-        <label for="select_object">Object:</label>
-        <select type="button" class="btn btn-default" id="select_object">
-            {% for o in object_list %}
-                <option value="{{o.catNo}}" {% if o.name == tracking %}selected{% endif %}>{{o.name}}</option>
-            {% endfor %}
-        </select>        
-        <input type="button" class="btn btn-default" value="Track Object" onclick=control.trackObject()>
+<div class="container">
+
+    <h3 style="text-align:left;">Control:</h3>
+    <div class="row">
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-default" value="Stop" onclick=control.sendCmd("STOP")>
+        </div>
+
+        <div class="col-sm-3" id="jog_div">
+            <div style="row">
+                <input type="button" class="btn btn-default" value="&#8598;" onclick=control.jog(-1,1)>
+                <input type="button" class="btn btn-default" value="&#8593;" onclick=control.jog(0,1)>
+                <input type="button" class="btn btn-default" value="&#8599;" onclick=control.jog(1,1)>
+            </div>
+            <div style="row">
+                <input type="button" class="btn btn-default" value="&#8592;" onclick=control.jog(-1,0)>
+                <input type="button" class="btn btn-default" value="&#8962;" onclick=control.moveTo(0,0)>
+                <input type="button" class="btn btn-default" value="&#8594;" onclick=control.jog(1,0)>
+            </div>
+            <div style="row">
+                <input type="button" class="btn btn-default" value="&#8601;" onclick=control.jog(-1,-1)>
+                <input type="button" class="btn btn-default" value="&#8595;" onclick=control.jog(0,-1)>
+                <input type="button" class="btn btn-default" value="&#8600;" onclick=control.jog(1,-1)>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-default" value="Set Pole" onclick=control.setPole()>
+            <input type="button" class="btn btn-default" value="Fix Position" onclick=control.fixPosition()>
+        </div>
+
+    </div>
+
+    <div style="row">
+        <div class="col col-5">
+            <label for="select_object">Object:</label>
+            <select type="button" class="btn btn-default" id="select_object">
+                {% for o in object_list %}
+                    <option value="{{o.catNo}}" {% if o.name == tracking %}selected{% endif %}>{{o.name}}</option>
+                {% endfor %}
+            </select>        
+            <input type="button" class="btn btn-default" value="Track Object" onclick=control.trackObject()>
+        </div>
+
+        <div class="col col-5">
+            <input type="text" id="catno" class="" placeholder="CatNo" aria-label="CatNo" aria-describedby="basic-addon1">
+            <input type="button" class="btn btn-default" value="Quick Track" onclick=control.quickTrack()>
+        </div>
+    </div>
+
+    <div style="row">
+        <div class="col-sm-3">
+            <label for="bearing_range">Bearing:</label>
+            <input type="range" class="form-control-range" id="bearing_range" min="0" max="359">
+            <input type="text" class="form-control" placeholder="Bearing target" aria-label="Bearing target" id="in_bearing">
+
+            <label for="bearing_range">Azimuth:</label>
+            <input type="range" class="form-control-range" id="azimuth_range" min="-70" max="70">
+            <input type="text" class="form-control" placeholder="Azimuth target" aria-label="Azimuth target" id="in_azimuth">
+            
+            <input type="button" class="btn btn-default" value="Move To" onclick=control.btn_moveTo()>
+        </div>
     </div>
 </div>
 
-<div style="row">
-    <div class="col-sm-3">
-        <input type="text" id="catno" class="form-control" placeholder="CatNo" aria-label="CatNo" aria-describedby="basic-addon1">
-        <input type="button" class="btn btn-default" value="Quick Track" onclick=control.quickTrack()>
-    </div>
-</div>
-
-
-<div style="row">
-    <div class="col-sm-3">
-        <label for="bearing_range">Bearing:</label>
-        <input type="range" class="form-control-range" id="bearing_range" min="0" max="359">
-        <input type="text" class="form-control" placeholder="Bearing target" aria-label="Bearing target" id="in_bearing">
-
-        <label for="bearing_range">Azimuth:</label>
-        <input type="range" class="form-control-range" id="azimuth_range" min="-70" max="70">
-        <input type="text" class="form-control" placeholder="Azimuth target" aria-label="Azimuth target" id="in_azimuth">
-        
-        <input type="button" class="btn btn-default" value="Move To" onclick=control.btn_moveTo()>
-    </div>
-</div>
-
+<div class="container">
 <h3 style="text-align:left;">Status:</h3>
 <div class="row">
     <div class="col-sm-3">
@@ -97,6 +100,7 @@
         <p>Bearing: <span id="bearing"></span></p>
         <p>Azimuth: <span id="azimuth"></span></p>
     </div>
+</div>
 </div>
 
 {% endblock content %}

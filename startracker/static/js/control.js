@@ -39,6 +39,7 @@ function Control(){
 
     this.getStatus = function() {
         $.get("/status", function(data, status) {
+            console.log(data)
             data = JSON.parse(data)
             if(status === "success"){
                 $("#bearing").html(data["Be"])
