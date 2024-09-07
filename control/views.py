@@ -37,9 +37,17 @@ def disconnect(request):
     return HttpResponse("OK")
 
 def sendCommand(request):
-    # startracker.settings.serial.write(request.GET["cmd"])
     payload = {
         "type": "cmd",
+        "cmd": request.GET["cmd"]
+    }
+    client = Client("127.0.0.1", 5411, sCallback)
+    client.sendMessage(payload)
+    return HttpResponse("OK")
+
+def sendData(request):
+    payload = {
+        "type": "data",
         "cmd": request.GET["cmd"]
     }
     client = Client("127.0.0.1", 5411, sCallback)

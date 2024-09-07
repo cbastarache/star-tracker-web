@@ -33,6 +33,10 @@
     <div class="row">
         <div class="col-sm-3">
             <input type="button" class="btn btn-default" value="Stop" onclick=control.sendCmd("STOP")>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="mode_switch" onclick=control.setMode()>
+                <label class="form-check-label" for="mode_switch">Mode</label>
+              </div>
         </div>
 
         <div class="col-sm-3" id="jog_div">
@@ -117,6 +121,13 @@ jQuery(document).ready(function($) {
 });
 
 var control = new Control()
+
+quicktrack = $("#catno")
+quicktrack.on("keyup", function(e){
+    if (e.which == 13)  { // Enter key
+        control.quickTrack()
+    }
+})
 
 </script>
 {% endblock scripts %}

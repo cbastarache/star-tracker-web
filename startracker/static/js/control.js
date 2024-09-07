@@ -37,9 +37,12 @@ function Control(){
         $.get("/sendCmd", {'cmd': cmd + "\n" })
     }
 
+    this.sendData = function(cmd) {
+        $.get("/sendData", {'cmd': cmd + "\n" })
+    }
+
     this.getStatus = function() {
         $.get("/status", function(data, status) {
-            console.log(data)
             data = JSON.parse(data)
             if(status === "success"){
                 $("#bearing").html(data["Be"])
@@ -81,7 +84,6 @@ function Control(){
 
     this.quickTrack = function(){
         id = $("#catno").val()
-        console.log(id)
         $.get(`https://celestrak.org/NORAD/elements/gp.php?CATNR=${id}&FORMAT=tle`, function(data, status){
             if (status == "success"){
                 satData = data.split("\r\n")
@@ -93,6 +95,12 @@ function Control(){
                 $.get("/setTLE", satData)
             }
         })
+    }
+
+    this.setMode = function(){
+        state = $("#mode_switch").is(":checked")
+        state = state ? 1 : 0
+        this.sendData(`MODE,${state}\n`);
     }
     
 

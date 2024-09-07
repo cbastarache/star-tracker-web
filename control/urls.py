@@ -8,6 +8,7 @@ urlpatterns = [
     path('connect', views.connect),
     path('disconnect', views.disconnect),
     path('sendCmd', views.sendCommand),
+    path('sendData', views.sendData),
     path('status', views.status),
     path('objects', views.objectspage),
     path('addobject', views.addObject),
