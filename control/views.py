@@ -6,6 +6,8 @@ import startracker.settings
 import json
 
 callbackData = ""
+clientPort = 5410
+clientAddress = "127.0.0.1"
 
 def sCallback(data):
     global callbackData
@@ -41,7 +43,7 @@ def sendCommand(request):
         "type": "cmd",
         "cmd": request.GET["cmd"]
     }
-    client = Client("127.0.0.1", 5411, sCallback)
+    client = Client(clientAddress, clientPort, sCallback)
     client.sendMessage(payload)
     return HttpResponse("OK")
 
@@ -50,7 +52,7 @@ def sendData(request):
         "type": "data",
         "cmd": request.GET["cmd"]
     }
-    client = Client("127.0.0.1", 5411, sCallback)
+    client = Client(clientAddress, clientPort, sCallback)
     client.sendMessage(payload)
     return HttpResponse("OK")
 
@@ -64,7 +66,7 @@ def status(request):
         "type": "data",
         "cmd": "POS\n"
     }
-    client = Client("127.0.0.1", 5411, sCallback)
+    client = Client(clientAddress, clientPort, sCallback)
     client.sendMessage(payload)
     print(callbackData)
     return HttpResponse(callbackData)
@@ -103,7 +105,7 @@ def track(request):
         "tle1": o.tle1,
         "tle2": o.tle2,
     }
-    client = Client("127.0.0.1", 5411, sCallback)
+    client = Client(clientAddress, clientPort, sCallback)
     client.sendMessage(payload)
     return HttpResponse("OK")
 
@@ -113,6 +115,6 @@ def quicktrack(request):
         "tle1": request.GET["tle1"],
         "tle2": request.GET["tle2"],
     }
-    client = Client("127.0.0.1", 5411, sCallback)
+    client = Client(clientAddress, clientPort, sCallback)
     client.sendMessage(payload)
     return HttpResponse("OK")
